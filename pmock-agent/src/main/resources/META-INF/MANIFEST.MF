@@ -1,0 +1,9 @@
+Manifest-Version: 1.0
+Archiver-Version: Plexus Archiver
+Created-By: Apache Maven
+Built-By: yangkuan
+Build-Jdk: 1.6.0_10-rc2
+Premain-Class: com.jd.jr.pmock.agent.AgentMain
+Can-Set-Native-Method-Prefix: false
+Can-Redefine-Classes: true
+Can-Retransform-Classes: true
