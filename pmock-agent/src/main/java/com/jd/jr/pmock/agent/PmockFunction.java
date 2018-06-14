@@ -16,7 +16,7 @@ public class PmockFunction  {
     public <T> T mock(Class mockObject) {
         //  if(mockObject.isInterface() ){
         //return  JavassistHelper.getProxyOject(mockObject);
-        return ProxyObjectHelper.getProxyOject(mockObject);
+        return (T)ProxyObjectHelper.getProxyOject(mockObject);
 /*   }else{
         return JavassistHelper.getNewOject(mockObject);//担心不同classloader加载的，到前台转型异常。
       }*/

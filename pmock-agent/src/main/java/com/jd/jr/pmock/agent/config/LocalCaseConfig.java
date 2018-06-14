@@ -1,6 +1,7 @@
 package com.jd.jr.pmock.agent.config;
 
 import com.jd.jr.pmock.agent.util.CaseFileUtil;
+import com.jd.jr.pmock.agent.parser.GroovyCaseParser;
 
 import java.io.File;
 import java.util.Map;
@@ -23,7 +24,7 @@ public class LocalCaseConfig implements CaseConfig {
                 if (caseFileName.lastIndexOf(".groovy") > -1) {
                     String[] caseClassName = caseFileName.split("\\.");
                     String className = caseClassName[0];
-                    Map<String, String> caseMethodMap = CaseFileUtil.readCaseText(CaseFileUtil.readToString(caseFile));
+                    Map<String, String> caseMethodMap = GroovyCaseParser.parseCaseMethod(CaseFileUtil.readToString(caseFile));
                     caseNameMap.put(className, caseMethodMap);
                 }
             }

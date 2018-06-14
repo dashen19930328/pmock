@@ -16,10 +16,6 @@ def queryShoppingResult(paraObj) {
         return "{'desc':'查询血拼','flag':true,'value':{'desc':'血拼的人','person':{'name':'泛型result'}}}"
 }
 
-def queryAge(paraObj) {
-    if (paraObj.name == 'queryAge')
-        return "{'name':'test123','age':789}"
-}
 
 def queryPersonList(personQuery) {
     if (personQuery==null)
@@ -58,6 +54,10 @@ def queryCountInter(count){
     return "9";
 }
 
+def queryAge(paraObj) {
+    if (paraObj.name == 'queryAge')
+        return "{'name':'test123','age':789}"
+}
 
 static   main(def args){
     def jsonSlurper = new JsonSlurper();

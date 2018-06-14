@@ -8,7 +8,7 @@ public class Pmock {
 
     public static <T> T mock(Class mockObject)  {
         PmockFunction pmockFunction = new PmockFunction();
-        return pmockFunction.mock(mockObject);
+        return (T) pmockFunction.mock(mockObject);
     }
 
 

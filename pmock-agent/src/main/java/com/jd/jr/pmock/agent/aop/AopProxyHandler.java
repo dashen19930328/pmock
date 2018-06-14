@@ -2,7 +2,7 @@ package com.jd.jr.pmock.agent.aop;
 
 import com.alibaba.fastjson.JSON;
 import com.jd.jr.pmock.agent.config.InitCase;
-import com.jd.jr.pmock.agent.groovy.GroovyRun;
+import com.jd.jr.pmock.agent.jvmScript.ScriptRun;
 
 import java.lang.reflect.Method;
 import java.lang.reflect.ParameterizedType;
@@ -17,16 +17,15 @@ import java.lang.reflect.Type;
 public class AopProxyHandler {
 
     public static <T> T afterInvoke0(String targetMethodName, Object[] targetMethodArgs, Object targetObject) throws Exception {
-            return afterInvoke2(targetMethodName,targetMethodArgs,targetObject,null,null);
+            return (T) afterInvoke2(targetMethodName,targetMethodArgs,targetObject,null,null);
     }
     public static <T> T afterInvoke1(String targetMethodName, Object[] targetMethodArgs, Object targetObject,String realClassSimpleName) throws Exception {
-        return afterInvoke2(targetMethodName, targetMethodArgs, targetObject, realClassSimpleName, null);
+        return (T) afterInvoke2(targetMethodName, targetMethodArgs, targetObject, realClassSimpleName, null);
     }
     public static <T> T afterInvoke2(String targetMethodName, Object[] targetMethodArgs, Object targetObject, String realClassSimpleName,Method method) throws Exception {
-        GroovyRun groovyRun = new GroovyRun();
         CaseJdkMethodInfo caseMethodVo = caseMethod(targetObject, targetMethodName, realClassSimpleName);
         wrapCaseMethodVo(caseMethodVo,method);
-        String jsonReponse = (String) groovyRun.runGroovyScript(caseMethodVo.caseSctript, targetMethodName, targetMethodArgs);
+        String jsonReponse = (String) ScriptRun.runScript(caseMethodVo.caseSctript, targetMethodName, targetMethodArgs,null);
         if(caseMethodVo.isString ){
             return (T) jsonReponse;
         }

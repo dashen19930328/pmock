@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.jd.jr.pmock.server.dao.CaseConfigMapper">
+
+
+
+
+    <!--根据条件，查找caseconfig表相应数据-->
+    <select id="queryBySelective" parameterType="CaseConfigVo"  resultType="CaseConfigVo">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM caseconfig where      <include refid="whereQuerySelectiveSql" /> 1=1
+    </select>
+
+    <!--根据条件，查找caseconfig表相应数据的总量-->
+    <select id="queryCountBySelective" parameterType="CaseConfigVo"  resultType="java.lang.Long">
+        SELECT
+        count(className )
+
+        FROM  caseconfig  where <include refid="whereSelectiveSql" />  1=1
+    </select>
+
+
+    <!--根据主键className，查找caseconfig表的唯一数据-->
+    <select id="queryByPrimaryKey" parameterType="Long"  resultType="CaseConfigVo">
+
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM  caseconfig  where  id = #{id}
+    </select>
+
+    <!--根据主键className，删除caseconfig表的唯一数据-->
+    <delete id="deleteByPrimaryKey" parameterType="Long">
+        DELETE FROM caseconfig WHERE id = #{id}
+    </delete>
+
+    <!--根据主键className，更新caseconfig表相应数据-->
+    <update id="updateByPrimaryKey" parameterType="CaseConfigVo">
+        UPDATE caseconfig
+        <set>
+            <include refid="updateSetSql" />
+        </set>
+        WHERE id = #{id}
+    </update>
+
+    <!--保存数据-->
+    <insert id="save" parameterType="CaseConfigVo">
+        INSERT INTO caseconfig
+        (
+        <include refid="Base_Column_List_WithOutPk" />
+        )
+        VALUES
+        (
+        <include refid="Javabean_Column_List_WithOutPk" />
+        )
+    </insert>
+
+    <!--根据条件，分页查找caseconfig表相应数据-->
+    <select id="queryBySelectiveForPagination" parameterType="CaseConfigVo"  resultType="CaseConfigVo">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM caseconfig where  <include refid="whereQuerySelectiveSql" />  1=1
+        order by id desc LIMIT #{startRow} , #{pageSize}
+    </select>
+
+
+    <!--caseconfig表所有字段-->
+    <sql id="Base_Column_List">
+        id  ,   <!---->
+        className  ,   <!---->
+        caseText  ,   <!---->
+        scriptType  ,   <!---->
+        version  ,   <!---->
+        userId  ,   <!---->
+        userName  ,   <!---->
+        ext1  ,   <!---->
+        ext2  ,   <!---->
+        updateDate  ,   <!---->
+        createdDate     <!---->
+    </sql>
+
+    <!--caseconfig表除了主键className的所有字段-->
+    <sql id="Base_Column_List_WithOutPk">
+        className    ,  <!---->
+        caseText      ,  <!---->
+        scriptType      ,  <!---->
+        version      ,  <!---->
+        userId      ,  <!---->
+        userName      ,  <!---->
+        ext1      ,  <!---->
+        ext2      ,  <!---->
+        updateDate      ,  <!---->
+        createdDate        <!---->
+    </sql>
+
+    <!--javabean除了主键id的所有字段-->
+    <sql id="Javabean_Column_List_WithOutPk">
+        #{className} ,                     <!---->
+        #{caseText} ,                     <!---->
+        #{scriptType} ,                     <!---->
+        #{version} ,                     <!---->
+        #{userId} ,                     <!---->
+        #{userName} ,                     <!---->
+        #{ext1} ,                     <!---->
+        #{ext2} ,                     <!---->
+       now() ,                     <!---->
+        now()                      <!---->
+    </sql>
+
+
+    <sql id="updateSetSql">
+        <if test="id != null">
+            id=#{id},
+        </if>
+        <if test="className != null">
+            className=#{className},
+        </if>
+        <if test="caseText != null">
+            caseText=#{caseText},
+        </if>
+        <if test="scriptType != null">
+            scriptType=#{scriptType},
+        </if>
+        <if test="version != null">
+            version=#{version},
+        </if>
+        <if test="userId != null">
+            userId=#{userId},
+        </if>
+        <if test="userName != null">
+            userName=#{userName},
+        </if>
+        <if test="ext1 != null">
+            ext1=#{ext1},
+        </if>
+        <if test="ext2 != null">
+            ext2=#{ext2},
+        </if>
+        <if test="updateDate != null">
+            updateDate=#{updateDate},
+        </if>
+        <if test="createdDate != null">
+            createdDate=#{createdDate},
+        </if>
+    </sql>
+
+
+    <sql id="whereQuerySelectiveSql">
+        <if test="query!= null">
+            <if test="query.id != null">
+                id = #{query.id} and
+            </if>
+
+            <if test="query.className != null and query.className!=''">
+                className = #{query.className}  and
+            </if>
+
+            <if test="query.caseText != null and query.caseText!=''">
+                caseText = #{query.caseText}  and
+            </if>
+
+            <if test="query.scriptType != null and query.scriptType!=''">
+                scriptType = #{query.scriptType}  and
+            </if>
+
+            <if test="query.version != null and query.version!=''">
+                version = #{query.version}  and
+            </if>
+
+            <if test="query.userId != null and query.userId!=''">
+                userId = #{query.userId}  and
+            </if>
+
+            <if test="query.userName != null and query.userName!=''">
+                userName = #{query.userName}  and
+            </if>
+
+            <if test="query.ext1 != null and query.ext1!=''">
+                ext1 = #{query.ext1}  and
+            </if>
+
+            <if test="query.ext2 != null and query.ext2!=''">
+                ext2 = #{query.ext2}  and
+            </if>
+
+            <if test="query.updateDate != null">
+                updateDate = #{query.updateDate} and
+            </if>
+
+            <if test="query.createdDate != null">
+                createdDate = #{query.createdDate} and
+            </if>
+
+        </if>
+    </sql>
+
+    <sql id="whereSelectiveSql">
+
+        <if test="id != null">
+            id = #{id} and
+        </if>
+
+        <if test="className != null and className!=''">
+            className = #{className}  and
+        </if>
+
+        <if test="caseText != null and caseText!=''">
+            caseText = #{caseText}  and
+        </if>
+
+        <if test="scriptType != null and scriptType!=''">
+            scriptType = #{scriptType}  and
+        </if>
+
+        <if test="version != null and version!=''">
+            version = #{version}  and
+        </if>
+
+        <if test="userId != null and userId!=''">
+            userId = #{userId}  and
+        </if>
+
+        <if test="userName != null and userName!=''">
+            userName = #{userName}  and
+        </if>
+
+        <if test="ext1 != null and ext1!=''">
+            ext1 = #{ext1}  and
+        </if>
+
+        <if test="ext2 != null and ext2!=''">
+            ext2 = #{ext2}  and
+        </if>
+
+        <if test="updateDate != null">
+            updateDate = #{updateDate} and
+        </if>
+
+        <if test="createdDate != null">
+            createdDate = #{createdDate} and
+        </if>
+
+
+    </sql>
+</mapper>

@@ -165,7 +165,7 @@ public class JavassistHelper {
     }
 
     public static <T> T getNewOject(Class classObject) {
-       return getNewOject(classObject.getName());
+       return (T)getNewOject(classObject.getName());
     }
     public static <T> T getNewOject(String objectClassFullName) {
         T newObject = null;
@@ -181,7 +181,7 @@ public class JavassistHelper {
             System.out.println("Pmock创造新对象异常:" + e.getMessage());
             e.printStackTrace();
         }
-        return newObject;
+        return  newObject;
     }
 
     private static final String PROXYFREFIX = "$Proxy";//生成的代理对象名称前缀

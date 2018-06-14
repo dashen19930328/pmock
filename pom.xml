@@ -16,6 +16,7 @@
 
     <modules>
         <module>pmock-agent</module>
+        <module>pmock-server</module>
         <module>pmock-demo</module>
     </modules>
 
