@@ -11,19 +11,19 @@
     <select id="queryBySelective" parameterType="CaseConfigVo"  resultType="CaseConfigVo">
         SELECT
         <include refid="Base_Column_List" />
-        FROM caseconfig where      <include refid="whereQuerySelectiveSql" /> 1=1
+        FROM caseconfig where      <include refid="whereSelectiveSql" /> 1=1
     </select>
 
     <!--根据条件，查找caseconfig表相应数据的总量-->
     <select id="queryCountBySelective" parameterType="CaseConfigVo"  resultType="java.lang.Long">
         SELECT
-        count(className )
+        count(id )
 
         FROM  caseconfig  where <include refid="whereSelectiveSql" />  1=1
     </select>
 
 
-    <!--根据主键className，查找caseconfig表的唯一数据-->
+    <!--根据主键id，查找caseconfig表的唯一数据-->
     <select id="queryByPrimaryKey" parameterType="Long"  resultType="CaseConfigVo">
 
         SELECT
@@ -31,12 +31,12 @@
         FROM  caseconfig  where  id = #{id}
     </select>
 
-    <!--根据主键className，删除caseconfig表的唯一数据-->
+    <!--根据主键id，删除caseconfig表的唯一数据-->
     <delete id="deleteByPrimaryKey" parameterType="Long">
         DELETE FROM caseconfig WHERE id = #{id}
     </delete>
 
-    <!--根据主键className，更新caseconfig表相应数据-->
+    <!--根据主键id，更新caseconfig表相应数据-->
     <update id="updateByPrimaryKey" parameterType="CaseConfigVo">
         UPDATE caseconfig
         <set>
@@ -62,8 +62,28 @@
         SELECT
         <include refid="Base_Column_List" />
         FROM caseconfig where  <include refid="whereQuerySelectiveSql" />  1=1
-        order by id desc LIMIT #{startRow} , #{pageSize}
+        order by id LIMIT #{startRow} , #{pageSize}
     </select>
+
+
+
+
+
+    <select id="queryByClassName"  parameterType="java.lang.String"   resultType="CaseConfigVo" >
+        SELECT
+        <include refid="Base_Column_List" /> FROM caseconfig WHERE      className=#{className} and   1=1
+    </select>
+
+    <update id="updateByClassName" parameterType="CaseConfigVo" >
+        UPDATE caseconfig
+        <set>
+            <include refid="updateSetSql" />
+        </set>
+        WHERE       className=#{className} and   1=1
+    </update>
+
+
+
 
 
     <!--caseconfig表所有字段-->
@@ -75,20 +95,26 @@
         version  ,   <!---->
         userId  ,   <!---->
         userName  ,   <!---->
+        systemCode  ,   <!---->
+        systemName  ,   <!---->
+        status  ,   <!---->
         ext1  ,   <!---->
         ext2  ,   <!---->
         updateDate  ,   <!---->
         createdDate     <!---->
     </sql>
 
-    <!--caseconfig表除了主键className的所有字段-->
+    <!--caseconfig表除了主键id的所有字段-->
     <sql id="Base_Column_List_WithOutPk">
-        className    ,  <!---->
+        className      ,  <!---->
         caseText      ,  <!---->
         scriptType      ,  <!---->
         version      ,  <!---->
         userId      ,  <!---->
         userName      ,  <!---->
+        systemCode      ,  <!---->
+        systemName      ,  <!---->
+        status      ,  <!---->
         ext1      ,  <!---->
         ext2      ,  <!---->
         updateDate      ,  <!---->
@@ -103,9 +129,12 @@
         #{version} ,                     <!---->
         #{userId} ,                     <!---->
         #{userName} ,                     <!---->
+        #{systemCode} ,                     <!---->
+        #{systemName} ,                     <!---->
+        #{status} ,                     <!---->
         #{ext1} ,                     <!---->
         #{ext2} ,                     <!---->
-       now() ,                     <!---->
+        #{updateDate} ,                     <!---->
         now()                      <!---->
     </sql>
 
@@ -131,6 +160,15 @@
         </if>
         <if test="userName != null">
             userName=#{userName},
+        </if>
+        <if test="systemCode != null">
+            systemCode=#{systemCode},
+        </if>
+        <if test="systemName != null">
+            systemName=#{systemName},
+        </if>
+        <if test="status != null">
+            status=#{status},
         </if>
         <if test="ext1 != null">
             ext1=#{ext1},
@@ -175,6 +213,18 @@
 
             <if test="query.userName != null and query.userName!=''">
                 userName = #{query.userName}  and
+            </if>
+
+            <if test="query.systemCode != null and query.systemCode!=''">
+                systemCode = #{query.systemCode}  and
+            </if>
+
+            <if test="query.systemName != null and query.systemName!=''">
+                systemName = #{query.systemName}  and
+            </if>
+
+            <if test="query.status != null">
+                status = #{query.status} and
             </if>
 
             <if test="query.ext1 != null and query.ext1!=''">
@@ -224,6 +274,18 @@
 
         <if test="userName != null and userName!=''">
             userName = #{userName}  and
+        </if>
+
+        <if test="systemCode != null and systemCode!=''">
+            systemCode = #{systemCode}  and
+        </if>
+
+        <if test="systemName != null and systemName!=''">
+            systemName = #{systemName}  and
+        </if>
+
+        <if test="status != null">
+            status = #{status} and
         </if>
 
         <if test="ext1 != null and ext1!=''">

@@ -4,6 +4,7 @@ import com.jd.jr.pmock.agent.util.CaseFileUtil;
 import com.jd.jr.pmock.agent.parser.GroovyCaseParser;
 
 import java.io.File;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -21,23 +22,30 @@ public class LocalCaseConfig implements CaseConfig {
             File[] caseFiles = caseDirFile.listFiles();
             for (File caseFile : caseFiles) {
                 String caseFileName = caseFile.getName();
-                if (caseFileName.lastIndexOf(".groovy") > -1) {
-                    String[] caseClassName = caseFileName.split("\\.");
-                    String className = caseClassName[0];
-                    Map<String, String> caseMethodMap = GroovyCaseParser.parseCaseMethod(CaseFileUtil.readToString(caseFile));
-                    caseNameMap.put(className, caseMethodMap);
+                String[] caseClassName = caseFileName.split("\\.");
+                String className = caseClassName[0];
+                String prefix=caseFileName.substring(caseFileName.lastIndexOf(".")+1);
+                String scriptText = CaseFileUtil.readToString(caseFile);
+                Map<String, String> scriptMap = new HashMap<String,String>();
+                scriptMap.put("scriptText",scriptText);
+                scriptMap.put("scriptType",prefix);
+                if (prefix.equals("groovy")||prefix.equals("javascript")||prefix.equals("python")||prefix.equals("ruby")) {
+                    caseNameMap.put(className, scriptMap);
                 }
             }
         }
     }
 
 
-    public String getCase(String caseClassName, String caseMethodName) {
+    public String getCaseByMethod(String caseClassName, String caseMethodName) {
         if (caseNameMap == null || caseNameMap.size() == 0)
             loadCase();
-        if (caseNameMap.get(caseClassName) != null &&
+/*        if (caseNameMap.get(caseClassName) != null &&
                 caseNameMap.get(caseClassName).get(caseMethodName) != null) {
             return caseNameMap.get(caseClassName).get(caseMethodName);
+        }*/
+        if (caseNameMap.get(caseClassName)!=null) {
+            return "";
         }
         return null;
     }
@@ -48,4 +56,5 @@ public class LocalCaseConfig implements CaseConfig {
             loadCase();
         return caseNameMap.get(caseClassName);
     }
+
 }

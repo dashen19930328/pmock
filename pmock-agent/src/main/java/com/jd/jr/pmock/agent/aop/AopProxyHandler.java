@@ -7,6 +7,7 @@ import com.jd.jr.pmock.agent.jvmScript.ScriptRun;
 import java.lang.reflect.Method;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
+import java.util.Map;
 
 /**
  * mock对象执行时，返回的数据对象
@@ -25,7 +26,7 @@ public class AopProxyHandler {
     public static <T> T afterInvoke2(String targetMethodName, Object[] targetMethodArgs, Object targetObject, String realClassSimpleName,Method method) throws Exception {
         CaseJdkMethodInfo caseMethodVo = caseMethod(targetObject, targetMethodName, realClassSimpleName);
         wrapCaseMethodVo(caseMethodVo,method);
-        String jsonReponse = (String) ScriptRun.runScript(caseMethodVo.caseSctript, targetMethodName, targetMethodArgs,null);
+        String jsonReponse = (String) ScriptRun.runScript(caseMethodVo.caseSctript, targetMethodName, targetMethodArgs,caseMethodVo.scriptType);
         if(caseMethodVo.isString ){
             return (T) jsonReponse;
         }
@@ -79,14 +80,15 @@ public class AopProxyHandler {
                     caseMethodVo.type = type;
                 }
                 String classSimpleName = clazz.getSimpleName();
-                String caseSctript = InitCase.getCase(classSimpleName, methodName);
-                if (caseSctript == null) {
-                    caseSctript = InitCase.getCase(realClassSimpleName, methodName);
+                Map<String, String>  caseConfigMap = InitCase.getCase(classSimpleName);
+                if (caseConfigMap == null) {
+                    caseConfigMap = InitCase.getCase(realClassSimpleName);
                 }
-                if (caseSctript == null) {
-                    System.out.println(methodName + "方法未找到case脚本");
+                if (caseConfigMap == null) {
+                    System.out.println(realClassSimpleName + "未找到case脚本");
                 }
-                caseMethodVo.caseSctript = caseSctript;
+                caseMethodVo.caseSctript = caseConfigMap.get("scriptText");
+                caseMethodVo.scriptType = caseConfigMap.get("scriptType");
                 break;
             }
         }

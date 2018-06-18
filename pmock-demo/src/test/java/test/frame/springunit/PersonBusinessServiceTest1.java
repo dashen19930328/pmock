@@ -1,6 +1,5 @@
 package test.frame.springunit;
 
-import com.jd.jr.pmock.agent.Pmock;
 import com.jd.jr.pmock.demo.dao.PersonBusinessDao;
 import com.jd.jr.pmock.demo.dao.PersonBusinessDaoImpl;
 import com.jd.jr.pmock.demo.service.PersonBusinessService;
@@ -25,11 +24,7 @@ import static org.junit.Assert.*;
  * Time: 下午2:14
  */
 
-//
-//@RunWith(SpringJUnit4ClassRunner.class)
-@Test
-@ContextConfiguration(locations = {"classpath:spring/spring-config.xml"})
-public class PersonBusinessServiceTest extends AbstractTestNGSpringContextTests  {
+public class PersonBusinessServiceTest1   {
     @Autowired
     PersonBusinessService personBusinessService;
     @Test()

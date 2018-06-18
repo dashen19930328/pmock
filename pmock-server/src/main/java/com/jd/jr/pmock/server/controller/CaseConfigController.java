@@ -5,7 +5,6 @@ import com.jd.jr.pmock.agent.jvmScript.ScriptRun;
 import com.jd.jr.pmock.agent.parser.GroovyCaseParser;
 import com.jd.jr.pmock.agent.parser.JsCaseParser;
 import com.jd.jr.pmock.server.dao.CaseConfigMapper;
-import com.jd.jr.pmock.server.domain.CaseConfigRunVo;
 import com.jd.jr.pmock.server.domain.CaseConfigVo;
 import com.jd.jr.pmock.server.query.PageQuery;
 import com.jd.jr.pmock.server.query.PageRes;
@@ -30,6 +29,11 @@ import java.util.Map;
 public class CaseConfigController {
     @Autowired
     private CaseConfigMapper caseConfigMapper;
+
+    public void setCaseConfigMapper(CaseConfigMapper caseConfigMapper) {
+        this.caseConfigMapper = caseConfigMapper;
+    }
+
     @RequestMapping(value = "/save", method = RequestMethod.POST)
     @ResponseBody
     public R save(CaseConfigVo caseConfigVo) {
@@ -112,5 +116,17 @@ public class CaseConfigController {
        String methodName = caseConfigVo.getMethod();
         Object reponseObj = ScriptRun.runScript(caseText, methodName, inputDataObjs, scriptType);
         return R.ok().put("reponse", JSON.toJSONString(reponseObj));
+    }
+
+    @RequestMapping(value = "/caseList", method = RequestMethod.GET)
+    @ResponseBody
+    public List<CaseConfigVo> caseList(String systemCode) {
+        if(systemCode==null||systemCode.equals("")){
+            return null;
+        }
+        CaseConfigVo caseConfigVo = new CaseConfigVo();
+        caseConfigVo.setSystemCode(systemCode);
+        List<CaseConfigVo>  caseConfigVoList = caseConfigMapper.queryBySelective(caseConfigVo);
+        return caseConfigVoList;
     }
 }

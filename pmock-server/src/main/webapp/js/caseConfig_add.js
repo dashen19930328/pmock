@@ -34,7 +34,7 @@ var vm = new Vue({
             inputPara:""
         },
         aceEdtiorObject:AceEdtiorObject.getInstance(),
-        caseMetods:["1","2","3"]
+        caseMetods:[]
     },
     created: function() {
         if(id != null){

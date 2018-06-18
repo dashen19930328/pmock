@@ -16,7 +16,7 @@ public interface CaseConfig {
 
     public void loadCase();
 
-    public String getCase(String caseClassName, String caseMethodName);
+    public String getCaseByMethod(String caseClassName, String caseMethodName);
 
     public Map<String, String> getClassConfig(String caseClassName);
 }

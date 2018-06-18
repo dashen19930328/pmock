@@ -1,9 +1,17 @@
 package com.jd.jr.pmock.server.controller;
 
 import com.alibaba.fastjson.JSON;
+import com.jd.jr.pmock.server.dao.CaseConfigMapper;
 import com.jd.jr.pmock.server.domain.CaseConfigVo;
 import com.jd.jr.pmock.server.util.R;
-import org.junit.Test;
+import org.testng.annotations.Test;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.test.AssertThrows;
+import org.springframework.util.Assert;
+import org.testng.annotations.BeforeTest;
+
+import java.util.List;
 
 /**
  * User: yangkuan@jd.com
@@ -73,5 +81,25 @@ public class CaseConfigControllerTest {
         result = caseConfigController.getCaseMethod(caseConfigVo);
         System.out.println("测试js脚本:"+JSON.toJSONString(result));
 
+    }
+    CaseConfigMapper caseConfigMapper;
+    @BeforeTest
+    public void setUp() throws Exception {
+        ApplicationContext applicationContext = new ClassPathXmlApplicationContext(
+                new String[]{"spring-config.xml"
+                });
+        caseConfigMapper =  (CaseConfigMapper) applicationContext.getBean("caseConfigMapper");
+
+    }
+
+    @Test
+    public void getCaseList(){
+
+        CaseConfigController caseConfigController = new CaseConfigController();
+        caseConfigController.setCaseConfigMapper(caseConfigMapper);
+        List<CaseConfigVo>  caseConfigVoList = caseConfigController.caseList("baina");
+        Assert.notNull(caseConfigVoList);
+
+        System.out.println("case列表:"+JSON.toJSONString(caseConfigVoList));
     }
 }

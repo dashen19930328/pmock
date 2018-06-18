@@ -33,6 +33,8 @@ def queryPersonList(personQuery) {
                 "{'name':'Bruce','age':28,'sex':1}," +
                 "{'name':'Lily','age':13,'sex':1}," +
                 "{'name':'Hair','age':15,'sex':1}]";
+    else   if (personQuery.sex == 0)
+        return "[{'name':'Jim','age':15,'sex':1}";
 }
 //纯粹为了做复杂的输入条件测试
 def queryComplexShopping(shoppingResult, query) {

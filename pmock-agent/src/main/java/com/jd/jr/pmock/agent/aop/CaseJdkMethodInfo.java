@@ -14,4 +14,5 @@ public class CaseJdkMethodInfo {
     public Type type;
     public Boolean returnTypeIsGeneric = Boolean.FALSE;
     public String caseSctript;
+    public String scriptType;
 }

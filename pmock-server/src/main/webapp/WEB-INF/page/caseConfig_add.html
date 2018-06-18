@@ -96,7 +96,7 @@
         <div >
         <div  >
             <!--代码输入框（注意请务必设置高度，否则无法显示）-->
-        <pre id="code" class="ace_editor" style="min-height:800px;min-width: 1000px">
+        <pre id="code" class="ace_editor" style="min-height:400px;min-width: 1000px">
             <textarea class="ace_text-input" v-model="caseConfig.caseText" >
             </textarea></pre>
 
@@ -190,6 +190,7 @@
                     enableLiveAutocompletion: true
                 });
                 me.aceEditor.resize();
+                me.aceEditor.setAutoScrollEditorIntoView(true);
                 me.aceEditor.setHighlightActiveLine(false);
             }
         }

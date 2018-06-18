@@ -46,6 +46,13 @@ public class JavassistHelper {
         return cc;
     }
 
+    /**
+     * 识别具体方法是否aop
+     * @param method
+     * @param simpleName
+     * @return
+     * @throws NotFoundException
+     */
     private static Boolean needSisst(CtMethod method, String simpleName) throws NotFoundException {
         String methodName = method.getName();
         CtClass returnType = method.getReturnType();

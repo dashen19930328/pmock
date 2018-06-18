@@ -2,6 +2,8 @@ package com.jd.jr.pmock.agent.config;
 
 import com.jd.jr.pmock.agent.util.InitConfigUtil;
 
+import java.util.Map;
+
 /**
  * mock脚本条件初始化入口
  * User: yangkuan@jd.com
@@ -16,13 +18,22 @@ public class InitCase {
         try {
             getCaseConfig();
             if (caseConfig != null)
-                return caseConfig.getCase(caseClassName, caseMethodName);
+                return caseConfig.getCaseByMethod(caseClassName, caseMethodName);
         } catch (Exception e) {
             System.out.println("InitCase类，加载case到内存失败:" + e.getMessage());
         }
         return null;
     }
-
+    public static Map<String, String> getCase(String caseClassName) {
+        try {
+            getCaseConfig();
+            if (caseConfig != null)
+                return   caseConfig.getClassConfig(caseClassName);
+        } catch (Exception e) {
+            System.out.println("InitCase类，加载case到内存失败:" + e.getMessage());
+        }
+        return null;
+    }
     public static Boolean classIsConfig(String caseClassName) {
         try {
             getCaseConfig();
