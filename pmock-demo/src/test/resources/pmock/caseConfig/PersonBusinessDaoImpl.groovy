@@ -46,7 +46,7 @@ def queryString(string){
 
 def queryCount(count){
     println count;
-    return "9";
+    return count;
 }
 
 def queryCountInter(count){
@@ -60,8 +60,8 @@ def queryAge(paraObj) {
 }
 
 static   main(def args){
-    def jsonSlurper = new JsonSlurper();
+/*    def jsonSlurper = new JsonSlurper();
     def map = jsonSlurper.parseText('{"name":"queryAge"}');
     println queryAge(map) ;
-    println queryString('ss');
+    println queryString('ss');*/
 }

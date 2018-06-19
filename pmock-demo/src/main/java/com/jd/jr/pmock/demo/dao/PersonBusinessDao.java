@@ -15,6 +15,8 @@ import java.util.Map;
  * Time: 下午9:49
  */
 public interface PersonBusinessDao {
+
+    public Long queryLong(Long count);
     public PersonVo queryAge(PersonQuery query);
 
     public PersonVo queryName(PersonQuery query);
@@ -42,6 +44,5 @@ public interface PersonBusinessDao {
     public Integer queryCountInter(Integer count);//测试基本类型的包装
 
     public String queryString(String string);
-
 
 }

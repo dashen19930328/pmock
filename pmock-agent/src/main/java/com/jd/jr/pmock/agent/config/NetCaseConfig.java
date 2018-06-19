@@ -29,10 +29,8 @@ public class NetCaseConfig implements CaseConfig {
     @Override
     public void loadCase() {
        String mockserverUrl =  InitConfigUtil.get("mockserver");
-       String systemCode = InitConfigUtil.get("systemCode");
         try {
             HttpClient httpClient = new PoolingHttpClient().create();
-            mockserverUrl = mockserverUrl+"?systemCode="+systemCode;
             HttpUriRequest httpUriRequest =new HttpGet(mockserverUrl);
             HttpResponse response = httpClient.execute(httpUriRequest);
             HttpEntity resEntity = response.getEntity();
@@ -64,7 +62,10 @@ public class NetCaseConfig implements CaseConfig {
         if (caseNameMap == null || caseNameMap.size() == 0)
             loadCase();
         if (caseNameMap.get(caseClassName)!=null) {
-            return "";
+            String caseText = caseNameMap.get(caseClassName).get("scriptText");
+            if(caseText.contains(caseMethodName)){
+                return "";
+            }
         }
         return null;
     }

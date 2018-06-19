@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.jd.jr.pmock.agent.jvmScript.ScriptRun;
 import com.jd.jr.pmock.agent.parser.GroovyCaseParser;
 import com.jd.jr.pmock.agent.parser.JsCaseParser;
+import com.jd.jr.pmock.agent.parser.ParserRouter;
 import com.jd.jr.pmock.server.dao.CaseConfigMapper;
 import com.jd.jr.pmock.server.domain.CaseConfigVo;
 import com.jd.jr.pmock.server.query.PageQuery;
@@ -78,13 +79,7 @@ public class CaseConfigController {
             scriptType = "groovy";
         }
 
-        Map<String, String> methodMap = null;
-        if(scriptType.equals("groovy")){
-            methodMap = GroovyCaseParser.parseCaseMethod(caseConfigVo.getCaseText());
-        }
-        if(scriptType.equals("javascript")){
-            methodMap = JsCaseParser.parseCaseMethod(caseConfigVo.getCaseText());
-        }
+        Map<String, String> methodMap =  ParserRouter.getParser(scriptType).parseCaseMethod(caseConfigVo.getCaseText());
         methodMap.remove("");
         return R.ok().put("methodMap", methodMap.keySet());
     }

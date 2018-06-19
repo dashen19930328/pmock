@@ -58,7 +58,7 @@ public class JavassistHelper {
         CtClass returnType = method.getReturnType();
         String returnName = returnType.getName();
         if (!returnName.equals("void")) {
-            if (InitCase.getCase(simpleName, methodName) != null) {
+            if (InitCase.getCaseByMethod(simpleName, methodName) != null) {
                 return Boolean.TRUE;
             }
         }
@@ -94,7 +94,7 @@ public class JavassistHelper {
             proxyMethod.setBody("{System.out.print(\"\"); }");
         } else {
             proxyMethod.setBody("{return null; }");
-            if (InitCase.getCase(classSimpleName, methodName) != null) {//设置了mock，继续处理
+            if (InitCase.getCaseByMethod(classSimpleName, methodName) != null) {//设置了mock，继续处理
                 StringBuffer afterCode = new StringBuffer();
                 afterCode.append(String.format(" $_ = ($r)%s.afterInvoke1(\"%s\",$args, $0,\"%s\");", new Object[]{"com.jd.jr.pmock.agent.aop.AopProxyHandler", methodName, classSimpleName}));
                 proxyMethod.insertAfter(afterCode.toString());

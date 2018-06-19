@@ -26,14 +26,22 @@ public class AopProxyHandler {
     public static <T> T afterInvoke2(String targetMethodName, Object[] targetMethodArgs, Object targetObject, String realClassSimpleName,Method method) throws Exception {
         CaseJdkMethodInfo caseMethodVo = caseMethod(targetObject, targetMethodName, realClassSimpleName);
         wrapCaseMethodVo(caseMethodVo,method);
-        String jsonReponse = (String) ScriptRun.runScript(caseMethodVo.caseSctript, targetMethodName, targetMethodArgs,caseMethodVo.scriptType);
-        if(caseMethodVo.isString ){
+        Object jsonReponse =  ScriptRun.runScript(caseMethodVo.caseSctript, targetMethodName, targetMethodArgs,caseMethodVo.scriptType);
+/*        if(caseMethodVo.isString ){
+            return (T) jsonReponse;
+        }*/
+        //String returnClassName = jsonReponse.getClass().getName();
+        String returnClassName = caseMethodVo.returnClass.getName();
+        if( returnClassName.equals("java.lang.String")||
+                returnClassName.equals("java.lang.Integer")||returnClassName.equals("int") ||
+                returnClassName.equals("java.lang.Long")||returnClassName.equals("long")||
+        returnClassName.equals("java.lang.Double")||returnClassName.equals("double") ){
             return (T) jsonReponse;
         }
         if (caseMethodVo.returnTypeIsGeneric) {
-            return (T) JSON.parseObject(jsonReponse, caseMethodVo.type);
+            return (T) JSON.parseObject((String)jsonReponse, caseMethodVo.type);
         } else {
-            return (T) JSON.parseObject(jsonReponse, caseMethodVo.returnClass);
+            return (T) JSON.parseObject((String)jsonReponse, caseMethodVo.returnClass);
         }
     }
 

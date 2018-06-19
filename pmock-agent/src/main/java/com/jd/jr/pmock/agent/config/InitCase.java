@@ -14,7 +14,7 @@ public class InitCase {
     private static String caseLoadVar = "loadSource";
     private static CaseConfig caseConfig = null;
 
-    public static String getCase(String caseClassName, String caseMethodName) {
+    public static String getCaseByMethod(String caseClassName, String caseMethodName) {
         try {
             getCaseConfig();
             if (caseConfig != null)

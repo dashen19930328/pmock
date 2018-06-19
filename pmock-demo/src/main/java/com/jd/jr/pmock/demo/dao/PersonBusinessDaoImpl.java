@@ -20,6 +20,9 @@ import java.util.Map;
 @Service
 public class PersonBusinessDaoImpl implements PersonBusinessDao {
 
+    public Long queryLong(Long count){
+        return count;
+    }
 
     public PersonVo queryAge(PersonQuery query) {
         PersonVo person = new PersonVo();

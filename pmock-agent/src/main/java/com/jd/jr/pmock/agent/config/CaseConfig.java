@@ -11,8 +11,10 @@ import java.util.Map;
  */
 public interface CaseConfig {
     //key是文件名，文件名即要mock的类名。
-    // value是一个map，此map的key对应要测试的方法名，value是groovy的方法内容。
+    //value是一个map，包含了脚本类型和文件的脚本内容
     public Map<String, Map<String, String>> caseNameMap = new HashMap<String, Map<String, String>>();//
+    // value是一个map，此map的key对应要测试的方法名，value是具体方法的脚本内容。
+    public Map<String, Map<String, String>> methodMap = new HashMap<String, Map<String, String>>();//
 
     public void loadCase();
 

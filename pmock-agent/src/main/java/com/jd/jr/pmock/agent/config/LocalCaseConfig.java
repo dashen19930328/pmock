@@ -1,5 +1,6 @@
 package com.jd.jr.pmock.agent.config;
 
+import com.jd.jr.pmock.agent.parser.ParserRouter;
 import com.jd.jr.pmock.agent.util.CaseFileUtil;
 import com.jd.jr.pmock.agent.parser.GroovyCaseParser;
 
@@ -29,8 +30,12 @@ public class LocalCaseConfig implements CaseConfig {
                 Map<String, String> scriptMap = new HashMap<String,String>();
                 scriptMap.put("scriptText",scriptText);
                 scriptMap.put("scriptType",prefix);
-                if (prefix.equals("groovy")||prefix.equals("javascript")||prefix.equals("python")||prefix.equals("ruby")) {
+                if (prefix.equals("groovy")||prefix.equals("javascript")||prefix.equals("js")||prefix.equals("python")||prefix.equals("ruby")) {
                     caseNameMap.put(className, scriptMap);
+                    if(ParserRouter.getParser(prefix)!=null){
+                        Map<String, String> caseMethodMap = ParserRouter.getParser(prefix).parseCaseMethod(CaseFileUtil.readToString(caseFile));
+                        methodMap.put(className, caseMethodMap);
+                    }
                 }
             }
         }
@@ -40,12 +45,15 @@ public class LocalCaseConfig implements CaseConfig {
     public String getCaseByMethod(String caseClassName, String caseMethodName) {
         if (caseNameMap == null || caseNameMap.size() == 0)
             loadCase();
-/*        if (caseNameMap.get(caseClassName) != null &&
-                caseNameMap.get(caseClassName).get(caseMethodName) != null) {
-            return caseNameMap.get(caseClassName).get(caseMethodName);
-        }*/
+        if (caseNameMap.get(caseClassName) != null &&
+                methodMap.get(caseClassName).get(caseMethodName) != null) {
+          return   "";
+        }
         if (caseNameMap.get(caseClassName)!=null) {
-            return "";
+            String caseText = caseNameMap.get(caseClassName).get("scriptText");
+            if(caseText.contains(caseMethodName)){
+                return "";
+            }
         }
         return null;
     }

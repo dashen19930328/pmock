@@ -23,7 +23,7 @@ public class ParserTest {
                 "    def map = jsonSlurper.parseText('{\"name\":\"queryAge\"}');\n" +
                 "    println queryCountInter(1) ; \n" +
                 "}";
-        Map<String, String> methodMap = GroovyCaseParser.parseCaseMethod(text);
+        Map<String, String> methodMap = new GroovyCaseParser().parseCaseMethod(text);
         Object response = ScriptRun.runScript(methodMap.get("queryCountInter"), "queryCountInter", new String[]{"1"}, null);
         System.out.println(response);
     }
@@ -33,7 +33,7 @@ public class ParserTest {
         String text ="function execute(s1, s2){\n" +
                 "  return s1 + s2;\n" +
                 "}";
-        Map<String, String> methodMap = JsCaseParser.parseCaseMethod(text);
+        Map<String, String> methodMap = new JsCaseParser().parseCaseMethod(text);
         Object response = ScriptRun.runScript(methodMap.get("execute"), "execute", new String[]{"1","2"}, "js");
         System.out.println(response);
     }

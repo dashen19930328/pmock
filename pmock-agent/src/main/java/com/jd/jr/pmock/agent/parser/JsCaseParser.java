@@ -7,18 +7,13 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-/**
- * User: yangkuan@jd.com
- * Date: 18-6-13
- * Time: 下午4:05
- */
-public class JsCaseParser extends CaseParser {
+public class JsCaseParser implements CaseParser {
     /**
      *
      * @param caseString
      * @return
      */
-    public static Map<String, String> parseCaseMethod(String caseString) {
+    public   Map<String, String> parseCaseMethod(String caseString) {
         Map<String, String> caseMethodMap = new HashMap<String, String>();
         try {
             BufferedReader br = new BufferedReader(new StringReader(caseString));
@@ -62,7 +57,7 @@ public class JsCaseParser extends CaseParser {
      *
      * @return
      */
-    private static boolean isMainFunction(String content) {
+    private   boolean isMainFunction(String content) {
         String pattern = ".*\\s+main\\s*\\(.*";//main前面至少有一个空格，后面至少有一个空格或者紧贴着(
         boolean isMatch = Pattern.matches(pattern, content);
         if (!isMatch) return false;

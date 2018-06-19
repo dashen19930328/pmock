@@ -7,8 +7,6 @@ import java.util.Map;
  * Date: 18-6-13
  * Time: 下午4:15
  */
-public abstract class CaseParser {
-    public static Map<String, String> parseCaseMethod(String caseString){
-        return null;
-    };
+public interface CaseParser {
+    public Map<String, String> parseCaseMethod(String caseString);
 }

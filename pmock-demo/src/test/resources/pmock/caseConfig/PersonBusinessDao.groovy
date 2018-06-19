@@ -67,8 +67,8 @@ def queryCountInter(count){
     return "9";
 }
 public static void main(def args){
-    def jsonSlurper = new JsonSlurper();
+/*    def jsonSlurper = new JsonSlurper();
     def map = jsonSlurper.parseText('{"name":"queryAge"}');
     println queryAge(map) ;
-    println queryString('ss');
+    println queryString('ss');*/
 }

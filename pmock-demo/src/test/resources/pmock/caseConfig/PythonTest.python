@@ -1,0 +1,4 @@
+def printme( str ):
+   "python=="
+   print str
+   return str
