@@ -33,7 +33,7 @@ public class CaseScriptMockTest {
     public void groovyMockTest(){
         PersonBusinessDao personBusinessDao =
                 mock(PersonBusinessDaoImpl.class);
-        int result = personBusinessDao.queryCount(1);
+        int result = personBusinessDao.queryCount(2);
         logger.info("groovy mock结果="+result+"");
     }
     @Test
