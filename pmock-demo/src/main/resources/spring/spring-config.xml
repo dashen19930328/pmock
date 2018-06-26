@@ -12,5 +12,7 @@
 
     <import resource="classpath:spring/spring-rpc.xml"/>
 
-
+<bean class="com.jd.jr.pmock.demo.spring.PmockBeanPostProcesser">
+    <property name="testType" value="${testType}"></property>
+</bean>
 </beans>

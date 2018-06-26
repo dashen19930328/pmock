@@ -12,7 +12,7 @@
 
     <bean id="playRpc" class="com.jd.jr.pmock.demo.proxy.RestResourceClientProxyFactoryBean">
         <property name="serviceInterface" value="com.jd.jr.pmock.demo.rpc.PlayRpc"></property>
-        <property name="baseUri" value="http://demo"></property>
+        <property name="baseUri" value="http://127.0.01"></property>
         <property name="httpClient" ref="httpClient"></property>
     </bean>
 

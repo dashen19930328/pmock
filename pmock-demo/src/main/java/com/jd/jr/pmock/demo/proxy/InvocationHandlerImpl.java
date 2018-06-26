@@ -46,6 +46,6 @@ public class InvocationHandlerImpl<T> implements InvocationHandler {
 
     public String toString()
     {
-        return "Client Proxy for :" + t.getName();
+        return t.getName()+"_proxy";
     }
 }

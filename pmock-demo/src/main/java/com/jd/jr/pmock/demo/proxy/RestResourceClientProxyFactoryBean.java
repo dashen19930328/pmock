@@ -28,7 +28,6 @@ public class RestResourceClientProxyFactoryBean<T> implements FactoryBean,
     private URI baseUri;
     private HttpClient httpClient;
     private T client;
-
     @Override
     public Object getObject() throws Exception {
         return client;
@@ -121,6 +120,9 @@ public class RestResourceClientProxyFactoryBean<T> implements FactoryBean,
 
     public void setHttpClient(HttpClient httpClient) {
         this.httpClient = httpClient;
+    }
+    public String toString(){
+        return serviceInterface.getName() + "_proxy@" + Integer.toHexString(hashCode());
     }
 }
 
