@@ -18,7 +18,7 @@
         <dependency>
             <groupId>org.hamcrest</groupId>
             <artifactId>hamcrest-all</artifactId>
-            <version>1.2</version>
+            <version>1.3</version>
         </dependency>
         <dependency>
             <groupId>org.testng</groupId>
@@ -100,10 +100,15 @@
             <artifactId>resteasy-spring</artifactId>
             <version>2.2.1.GA</version>
         </dependency>
-        <dependency>
+ <!--       <dependency>
             <groupId>jackson-all</groupId>
             <artifactId>jackson-all</artifactId>
-            <version>1.9.7</version>
+            <version>1.5.0</version>
+        </dependency>-->
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>2.7.1-1</version>
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
@@ -205,7 +210,6 @@
 
     <build>
         <finalName>pmock-server</finalName>
-
         <plugins>
             <plugin>
                 <groupId>org.mortbay.jetty</groupId>
@@ -251,5 +255,44 @@
                 </configuration>
             </plugin>
         </plugins>
+        <resources>
+<!--            <resource>
+                <directory>src/main/resources/props/${env}</directory>
+            </resource>-->
+                <resource>
+                    <directory>src/main/resources</directory>
+                    <filtering>true</filtering>
+                </resource>
+                <resource>
+                    <directory>src/assembly/resources</directory>
+                    <filtering>false</filtering>
+                </resource>
+        </resources>
     </build>
+    <profiles>
+        <profile>
+            <id>dev</id>
+            <properties>
+                <jdbc.driverClassName>com.mysql.jdbc.Driver</jdbc.driverClassName>
+                <datasource.url><![CDATA[jdbc:mysql://127.0.0.1:3306/pmockserver?createDatabaseIfNotExist=true&amp;characterEncoding=utf-8&amp;useUnicode=true]]></datasource.url>
+                <datasource.username>root</datasource.username>
+                <datasource.password>root</datasource.password>
+<!--                <env>dev</env>-->
+            </properties>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+        </profile>
+        <profile>
+            <id>aliyun</id>
+            <properties>
+                <jdbc.driverClassName>com.mysql.jdbc.Driver</jdbc.driverClassName>
+                <datasource.url><![CDATA[jdbc:mysql://192.168.145.154:3306/pmockserver?createDatabaseIfNotExist=true&amp;characterEncoding=utf-8&amp;useUnicode=true]]></datasource.url>
+                <datasource.username>root</datasource.username>
+                <datasource.password>root</datasource.password>
+                <!--<env>aliyun</env>-->
+            </properties>
+        </profile>
+
+    </profiles>
 </project>
