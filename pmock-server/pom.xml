@@ -274,25 +274,38 @@
             <id>dev</id>
             <properties>
                 <jdbc.driverClassName>com.mysql.jdbc.Driver</jdbc.driverClassName>
-                <datasource.url><![CDATA[jdbc:mysql://127.0.0.1:3306/pmockserver?createDatabaseIfNotExist=true&amp;characterEncoding=utf-8&amp;useUnicode=true]]></datasource.url>
+<!--                <datasource.url><![CDATA[jdbc:mysql://127.0.0.1:3306/pmockserver?createDatabaseIfNotExist=true&amp;characterEncoding=utf-8&amp;useUnicode=true]]></datasource.url>
                 <datasource.username>root</datasource.username>
-                <datasource.password>root</datasource.password>
+                <datasource.password>root</datasource.password>-->
+                <datasource.url><![CDATA[jdbc:mysql://rm-2ze7h5us2l64pcrj9ko.mysql.rds.aliyuncs.com:3306/pmockserver?createDatabaseIfNotExist=true&amp;characterEncoding=utf-8&amp;useUnicode=true]]></datasource.url>
+                <datasource.username>aliyun4yts</datasource.username>
+                <datasource.password>qjsnpa@ALIYUN1985</datasource.password>
 <!--                <env>dev</env>-->
             </properties>
-            <activation>
+  <!--          <activation>
                 <activeByDefault>true</activeByDefault>
-            </activation>
+            </activation>-->
         </profile>
         <profile>
-            <id>aliyun</id>
+            <id>aliyunPublic</id>
             <properties>
                 <jdbc.driverClassName>com.mysql.jdbc.Driver</jdbc.driverClassName>
-                <datasource.url><![CDATA[jdbc:mysql://192.168.145.154:3306/pmockserver?createDatabaseIfNotExist=true&amp;characterEncoding=utf-8&amp;useUnicode=true]]></datasource.url>
-                <datasource.username>root</datasource.username>
-                <datasource.password>root</datasource.password>
+                <datasource.url><![CDATA[jdbc:mysql://rm-2ze7h5us2l64pcrj9ko.mysql.rds.aliyuncs.com:3306/pmockserver?createDatabaseIfNotExist=true&amp;characterEncoding=utf-8&amp;useUnicode=true]]></datasource.url>
+                <datasource.username>aliyun4yts</datasource.username>
+                <datasource.password>qjsnpa@ALIYUN1985</datasource.password>
                 <!--<env>aliyun</env>-->
             </properties>
         </profile>
 
+        <profile>
+            <id>aliyun</id>
+            <properties>
+                <jdbc.driverClassName>com.mysql.jdbc.Driver</jdbc.driverClassName>
+                <datasource.url><![CDATA[jdbc:mysql://rm-2ze7h5us2l64pcrj9.mysql.rds.aliyuncs.com:3306/pmockserver?createDatabaseIfNotExist=true&amp;characterEncoding=utf-8&amp;useUnicode=true]]></datasource.url>
+                <datasource.username>aliyun4yts</datasource.username>
+                <datasource.password>qjsnpa@ALIYUN1985</datasource.password>
+                <!--<env>aliyun</env>-->
+            </properties>
+        </profile>
     </profiles>
 </project>
