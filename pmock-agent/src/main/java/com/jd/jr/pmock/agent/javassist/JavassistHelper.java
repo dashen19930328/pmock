@@ -84,11 +84,11 @@ public class JavassistHelper {
             proxyMethod.setGenericSignature(returnType.getGenericSignature());
         }*/
         //CtNewMethod.make("public Integer getInteger() { return null; }", cc);
-        if(returnType.getGenericSignature()!=null){//搞不定泛型设置
+     //   if(returnType.getGenericSignature()!=null){//搞不定泛型设置//TODO 20180814 因为默认maven库的jar版本，不支持getGenericSignature方法
         MethodInfo methodInfo =  targetMethod.getMethodInfo();
        //  proxyMethod =    CtMethod.make(targetMethod.getMethodInfo(),proxyObjectClass);
         //proxyMethod.setGenericSignature(new SignatureAttribute.TypeVariable("Repository<String>").encode());
-        }
+     //   }
         String classSimpleName = targetObject.getSimpleName();
         if (returnType.getName().equals("void")) {//不需要返回对象的，简单处理
             proxyMethod.setBody("{System.out.print(\"\"); }");
